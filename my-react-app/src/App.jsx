@@ -1,11 +1,17 @@
-import React from 'react';
-import HraCalculator from './Pages/HraCalculator';
-import IncomeTaxCalculator from './Pages/AdvanceTaxCalculator';
+import React from "react";
+import HraCalculator from "./Pages/HraCalculator";
+import AdvanceTaxCalculator from "./Pages/AdvanceTaxCalculator";
+ 
 
 function App() {
   return (
     <div>
-      <HraCalculator  />
+      <div>
+        <AdvanceTaxCalculator/>
+      </div>
+      <div>
+        <HraCalculator/>
+      </div>
     </div>
   );
 }

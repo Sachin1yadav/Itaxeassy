@@ -1,79 +1,231 @@
 import React, { useState } from "react";
 
-const AdvanceTaxCalculator = () => {
+function AdvanceTaxCalculator() {
+  const [taxPayer, setTaxPayer] = useState("Domestic Company");
+  const [isSection115BAC, setIsSection115BAC] = useState(false);
   const [netTaxableIncome, setNetTaxableIncome] = useState(0);
   const [relief, setRelief] = useState(0);
-  const [tdsTcMatAmtCreditUtilized, setTdsTcMatAmtCreditUtilized] = useState(0);
-  const [isSection115BAC, setIsSection115BAC] = useState(false);
+  const [tdsTcsMatAmtCreditUtilized, setTdsTcsMatAmtCreditUtilized] =
+    useState(0);
+  const [incomeTax, setIncomeTax] = useState(0);
+  const [surcharge, setSurcharge] = useState(0);
+  const [educationCess, setEducationCess] = useState(0);
+  const [secondaryCess, setSecondaryCess] = useState(0);
+  const [totalTaxLiability, setTotalTaxLiability] = useState(0);
+  const [assessedTax, setAssessedTax] = useState(0);
 
   const calculateAdvanceTax = () => {
-    const incomeTax = Math.floor(netTaxableIncome * 0.30);
-    const surcharge = Math.floor(incomeTax * 0.15);
-    const educationCess = Math.floor(incomeTax * 0.03);
-    const secondaryAndHigherEducationCess = Math.floor(educationCess * 0.02);
-    const totalTaxLiability = incomeTax + surcharge + educationCess + secondaryAndHigherEducationCess;
-    const assessedTax = isSection115BAC ? netTaxableIncome * 0.15 : totalTaxLiability - tdsTcMatAmtCreditUtilized;
+    if (taxPayer === "Domestic Company") {
+      const taxRate = isSection115BAC ? 0.25 : 0.3;
+      const incomeTax = netTaxableIncome * taxRate;
+      const surcharge = incomeTax > 10000000 ? incomeTax * 0.07 : 0;
+      const educationCess = incomeTax * 0.04;
+      const secondaryCess = educationCess * 0.01;
+      const totalTaxLiability =
+        incomeTax + surcharge + educationCess + secondaryCess;
+      const assessedTax =
+        totalTaxLiability - relief - tdsTcsMatAmtCreditUtilized;
 
-    return {
-      incomeTax,
-      surcharge,
-      educationCess,
-      secondaryAndHigherEducationCess,
-      totalTaxLiability,
-      assessedTax,
-    };
+      setIncomeTax(incomeTax);
+      setSurcharge(surcharge);
+      setEducationCess(educationCess);
+      setSecondaryCess(secondaryCess);
+      setTotalTaxLiability(totalTaxLiability);
+      setAssessedTax(assessedTax);
+    } else if (taxPayer === "Foreign Company") {
+      const taxRate = isSection115BAC ? 0.4 : 0.5;
+      const incomeTax = netTaxableIncome * taxRate;
+      const surcharge = incomeTax > 10000000 ? incomeTax * 0.07 : 0;
+      const educationCess = incomeTax * 0.04;
+      const secondaryCess = educationCess * 0.01;
+      const totalTaxLiability =
+        incomeTax + surcharge + educationCess + secondaryCess;
+      const assessedTax =
+        totalTaxLiability - relief - tdsTcsMatAmtCreditUtilized;
+
+      setIncomeTax(incomeTax);
+      setSurcharge(surcharge);
+      setEducationCess(educationCess);
+      setSecondaryCess(secondaryCess);
+      setTotalTaxLiability(totalTaxLiability);
+      setAssessedTax(assessedTax);
+    }else if (taxPayer === "Firms") {
+      const taxRate = isSection115BAC ? 0.3 : 0.36;
+      const incomeTax = netTaxableIncome * taxRate;
+      const surcharge = incomeTax >250000 ? incomeTax * 0.05 : 0;
+      const educationCess = incomeTax * 0.04;
+      const secondaryCess = educationCess * 0.01;
+      const totalTaxLiability =
+        incomeTax + surcharge + educationCess + secondaryCess;
+      const assessedTax =
+        totalTaxLiability - relief - tdsTcsMatAmtCreditUtilized;
+
+      setIncomeTax(incomeTax);
+      setSurcharge(surcharge);
+      setEducationCess(educationCess);
+      setSecondaryCess(secondaryCess);
+      setTotalTaxLiability(totalTaxLiability);
+      setAssessedTax(assessedTax);
+    }
+    else if (taxPayer === "LLP") {
+      const taxRate = isSection115BAC ? 0.3 : 0.36;
+      const incomeTax = netTaxableIncome * taxRate;
+      const surcharge = incomeTax >300000 ? incomeTax * 0.05 : 0;
+      const educationCess = incomeTax * 0.04;
+      const secondaryCess = educationCess * 0.01;
+      const totalTaxLiability =
+        incomeTax + surcharge + educationCess + secondaryCess;
+      const assessedTax =
+        totalTaxLiability - relief - tdsTcsMatAmtCreditUtilized;
+
+      setIncomeTax(incomeTax);
+      setSurcharge(surcharge);
+      setEducationCess(educationCess);
+      setSecondaryCess(secondaryCess);
+      setTotalTaxLiability(totalTaxLiability);
+      setAssessedTax(assessedTax);
+    }
+    else if (taxPayer === "LLP") {
+      const taxRate = isSection115BAC ? 0.3 : 0.36;
+      const incomeTax = netTaxableIncome * taxRate;
+      const surcharge = incomeTax >10000 ? incomeTax * 0.2 : 1;
+      const educationCess = incomeTax * 0.04;
+      const secondaryCess = educationCess * 0.01;
+      const totalTaxLiability =
+        incomeTax + surcharge + educationCess + secondaryCess;
+      const assessedTax =
+        totalTaxLiability - relief - tdsTcsMatAmtCreditUtilized;
+
+      setIncomeTax(incomeTax);
+      setSurcharge(surcharge);
+      setEducationCess(educationCess);
+      setSecondaryCess(secondaryCess);
+      setTotalTaxLiability(totalTaxLiability);
+      setAssessedTax(assessedTax);
+    }
+    // Add logic for other tax payer types if needed
   };
 
+  const handleTaxPayerChange = (e) => {
+    setTaxPayer(e.target.value);
+  };
+
+  const handleIsSection115BACChange = (e) => {
+    setIsSection115BAC(e.target.checked);
+  };
+
+  const handleNetTaxableIncomeChange = (e) => {
+    setNetTaxableIncome(Number(e.target.value));
+  };
+
+  const handleReliefChange = (e) => {
+    setRelief(Number(e.target.value));
+  };
+
+  const handleTdsTcsMatAmtCreditUtilizedChange = (e) => {
+    setTdsTcsMatAmtCreditUtilized(Number(e.target.value));
+  };
+  const resetForm = () => {
+    setTaxPayer("Domestic Company");
+    setIsSection115BAC(false);
+    setNetTaxableIncome(0);
+    setRelief(0);
+    setTdsTcsMatAmtCreditUtilized(0);
+    setIncomeTax(0);
+    setSurcharge(0);
+    setEducationCess(0);
+    setSecondaryCess(0);
+    setTotalTaxLiability(0);
+    setAssessedTax(0);
+  };
+
+if(taxPayer==="Individual"){
+  alert("Its under the procces, till then try others thing")
+  setTaxPayer("Domestic Company")
+}
+
   return (
-    <div>
-      <h1>Advance Tax Calculator for FY 2023-24</h1>
-      <form>
-        <div>
-          <label for="netTaxableIncome">Net Taxable Income</label>
-          <input
-            type="number"
-            id="netTaxableIncome"
-            value={netTaxableIncome}
-            onChange={(e) => setNetTaxableIncome(e.target.value)}
-          />
+    <div className="advance-tax-calculator">
+      <h1 className="title">Advance Tax Calculator</h1>
+      <div className="input-group">
+        <label>Tax Payer:</label>
+        <select value={taxPayer} onChange={handleTaxPayerChange}>
+          <option value="Individual">Individual</option>
+          <option value="Domestic Company">Domestic Company</option>
+          <option value="Foreign Company">Foreign Company</option>
+          <option value="Firms">Firms</option>
+          <option value="LLP">LLP</option>
+          <option value="Co-operative Society">Co-operative Society</option>
+        </select>
+      </div>
+
+      <div className="input-group">
+        <label>Opting for Taxation under Section 115BAC:</label>
+        <input
+          type="checkbox"
+          checked={isSection115BAC}
+          onChange={handleIsSection115BACChange}
+        />
+      </div>
+
+      <div className="input-group">
+        <label>Net Taxable Income:</label>
+        <input
+          type="number"
+          value={netTaxableIncome}
+          onChange={handleNetTaxableIncomeChange}
+        />
+      </div>
+
+      <div className="input-group">
+        <label>Relief:</label>
+        <input type="number" value={relief} onChange={handleReliefChange} />
+      </div>
+
+      <div className="input-group">
+        <label>TDS/TCS/MAT (AMT) Credit Utilized:</label>
+        <input
+          type="number"
+          value={tdsTcsMatAmtCreditUtilized}
+          onChange={handleTdsTcsMatAmtCreditUtilizedChange}
+        />
+      </div>
+      <div>
+        <h2>Tax Details</h2>
+        <div className="input-group">
+          <label>Income Tax:</label>
+          <span>{incomeTax}</span>
         </div>
-        <div>
-          <label for="relief">Relief</label>
-          <input
-            type="number"
-            id="relief"
-            value={relief}
-            onChange={(e) => setRelief(e.target.value)}
-          />
+        <div className="input-group">
+          <label>Surcharge:</label>
+          <span>{surcharge}</span>
         </div>
-        <div>
-          <label for="tdsTcMatAmtCreditUtilized">TDS/TCS/MAT (AMT) Credit Utilized</label>
-          <input
-            type="number"
-            id="tdsTcMatAmtCreditUtilized"
-            value={tdsTcMatAmtCreditUtilized}
-            onChange={(e) => setTdsTcMatAmtCreditUtilized(e.target.value)}
-          />
+        <div className="input-group">
+          <label>Education Cess:</label>
+          <span>{educationCess}</span>
         </div>
-        <div>
-          <label for="isSection115BAC">Opting for taxation under Section 115BAC?</label>
-          <input
-            type="checkbox"
-            id="isSection115BAC"
-            checked={isSection115BAC}
-            onChange={(e) => setIsSection115BAC(e.target.checked)}
-          />
+        <div className="input-group">
+          <label>Secondary and Higher Education Cess:</label>
+          <span>{secondaryCess}</span>
         </div>
-        <button onClick={calculateAdvanceTax}>Calculate Advance Tax</button>
-      </form>
-      <p>
-        The advance tax calculated is as follows:
-      </p>
-      <pre>
-        {JSON.stringify(calculateAdvanceTax(), null, 2)}
-      </pre>
+        <div className="input-group">
+          <label>Total Tax Liability:</label>
+          <span>{totalTaxLiability}</span>
+        </div>
+        <div className="input-group">
+          <label>Assessed Tax:</label>
+          <span>{assessedTax}</span>
+        </div>
+      </div>
+
+      <div className="ButtonDiv">
+        <button onClick={calculateAdvanceTax}>Calculate</button>
+        <button style={{ background: "blue" }} onClick={resetForm}>
+          Reset
+        </button>
+      </div>
     </div>
   );
-};
+}
 
 export default AdvanceTaxCalculator;

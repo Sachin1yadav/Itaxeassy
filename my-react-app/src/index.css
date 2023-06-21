@@ -42,7 +42,7 @@ button:focus-visible {
  
 
 
-.hra-calculator {
+.hra-calculator,.advance-tax-calculator {
   width: 70%;
  
   margin:  auto;
@@ -62,14 +62,16 @@ button:focus-visible {
 .input-group {
   margin-bottom: 10px;
   text-align: left;
-  
+
   display: flex;
   justify-content: space-between;
   
 }
+ 
 
 label {
   display: block;
+   
   margin-bottom: 5px;
 }
 
