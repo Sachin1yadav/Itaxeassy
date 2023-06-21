@@ -75,7 +75,7 @@ label {
 }
 
 input[type='number'] {
-  width: 50%;
+  width: 30%;
   padding: 5px;
   border-radius: 3px;
   border: 1px solid #ccc;
@@ -109,7 +109,7 @@ div > span {
 }
 
 span{
-    width: 20%;
+    width: 30%;
     padding: 5px;
    background: rgb(229, 228, 228);
    cursor: pointer;

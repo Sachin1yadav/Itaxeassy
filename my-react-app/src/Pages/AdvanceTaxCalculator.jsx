@@ -247,33 +247,34 @@ function AdvanceTaxCalculator() {
         />
       </div>
       {/* ........ */}
-      {taxPayer==="Individual" && 
-      <div className="input-group">
-      <label>Male / Female / Senior Citizen:</label>
-      <select value={taxPayer} onChange={handleTaxPayerChange}>
-        <option value="Male">Male</option>
+      {taxPayer === "Individual" && (
+        <div className="input-group">
+          <label>Male / Female / Senior Citizen:</label>
+          <select value={taxPayer} onChange={handleTaxPayerChange}>
+            <option value="Male">Male</option>
 
-        <option value="Female">Female</option>
-        <option value="senior citizen"> senior citizen</option>
-        <option value="senior citizen">Super senior citizen</option>
-        
-      </select>
-    </div>
-}
-{/* ...... */}
- {taxPayer==="Individual" && 
-<div className="input-group">
-<label>Residential Status:</label>
-<select value={taxPayer} onChange={"here should be a function"}>
-  <option value="Resident">Resident</option>
+            <option value="Female">Female</option>
+            <option value="senior citizen"> senior citizen</option>
+            <option value="senior citizen">Super senior citizen</option>
+          </select>
+        </div>
+      )}
+      {/* ...... */}
+      {taxPayer === "Individual" && (
+        <div className="input-group">
+          <label>Residential Status:</label>
+          <select value={taxPayer} onChange={"here should be a function"}>
+            <option value="Resident">Resident</option>
 
-  <option value="Non Resident">Non Resident</option>
-  <option value="Not Ordinary Resident"> Not Ordinary Resident</option>
-   
-</select>
-</div>
-      }
-            {/* ........ */}
+            <option value="Non Resident">Non Resident</option>
+            <option value="Not Ordinary Resident">
+              {" "}
+              Not Ordinary Resident
+            </option>
+          </select>
+        </div>
+      )}
+      {/* ........ */}
 
       <div className="input-group">
         <label>Net Taxable Income:</label>
@@ -283,7 +284,54 @@ function AdvanceTaxCalculator() {
           onChange={handleNetTaxableIncomeChange}
         />
       </div>
+      {/* ....... */}
+      {taxPayer === "Individual" && (
+        <div>
+          <div className="input-group">
+            <label>Income From House Property :</label>
+            <span>{incomeTax}</span>
+          </div>
+          <div className="input-group">
+            <label>Capital Gains :</label>
+            <span>{incomeTax}</span>
+          </div>
+          <div className="input-group">
+            <label>Income From Other Sources :</label>
+            <span>{incomeTax}</span>
+          </div>
+        </div>
+      )}
+      {/* ......... */}
 
+      {taxPayer === "Individual" && (
+        <div>
+          <div className="input-group">
+          <label>Profits and Gains of Business or Profession (enter profit only)</label>
+          <input type="number" value={relief} onChange={handleReliefChange} />
+        </div>
+        <div className="input-group">
+          <label>Agricultural Income</label>
+          <input type="number" value={relief} onChange={handleReliefChange} />
+        </div>
+        </div>
+      )}
+
+      {/* ...... */}
+
+      {taxPayer === "Individual" && (
+        <div>
+          <div className="input-group">
+            <label>Deductions :</label>
+            <span>{incomeTax}</span>
+          </div>
+          <div className="input-group">
+            <label>Net Taxable Income :</label>
+            <span>{incomeTax}</span>
+          </div>
+        </div>
+      )}
+
+      {/* ..........       */}
       <div className="input-group">
         <label>Relief:</label>
         <input type="number" value={relief} onChange={handleReliefChange} />
