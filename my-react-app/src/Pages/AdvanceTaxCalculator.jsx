@@ -218,7 +218,7 @@ function AdvanceTaxCalculator() {
 
   if (taxPayer === "Individual") {
     alert("Its under the procces, till then try others thing");
-    setTaxPayer("Domestic Company");
+    // setTaxPayer("Domestic Company");
   }
 
   return (
@@ -246,6 +246,34 @@ function AdvanceTaxCalculator() {
           onChange={handleIsSection115BACChange}
         />
       </div>
+      {/* ........ */}
+      {taxPayer==="Individual" && 
+      <div className="input-group">
+      <label>Male / Female / Senior Citizen:</label>
+      <select value={taxPayer} onChange={handleTaxPayerChange}>
+        <option value="Male">Male</option>
+
+        <option value="Female">Female</option>
+        <option value="senior citizen"> senior citizen</option>
+        <option value="senior citizen">Super senior citizen</option>
+        
+      </select>
+    </div>
+}
+{/* ...... */}
+ {taxPayer==="Individual" && 
+<div className="input-group">
+<label>Residential Status:</label>
+<select value={taxPayer} onChange={"here should be a function"}>
+  <option value="Resident">Resident</option>
+
+  <option value="Non Resident">Non Resident</option>
+  <option value="Not Ordinary Resident"> Not Ordinary Resident</option>
+   
+</select>
+</div>
+      }
+            {/* ........ */}
 
       <div className="input-group">
         <label>Net Taxable Income:</label>

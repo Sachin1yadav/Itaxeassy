@@ -46,11 +46,10 @@ button:focus-visible {
   width: 70%;
  
   margin:  auto;
-  
+  border-radius: 10px;
   padding: 20px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  border-radius: 5px;
-  background-color: #f9f9f9;
+   background-color: #f9f9f9;
   text-align: center;
   margin-top: 100px;
 }
@@ -71,7 +70,7 @@ button:focus-visible {
 
 label {
   display: block;
-   
+   font-size: 20px;
   margin-bottom: 5px;
 }
 
@@ -95,7 +94,7 @@ button {
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #ea2401;
 }
 
 div > span {
