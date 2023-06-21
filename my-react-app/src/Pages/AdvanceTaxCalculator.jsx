@@ -3,16 +3,16 @@ import React, { useState } from "react";
 function AdvanceTaxCalculator() {
   const [taxPayer, setTaxPayer] = useState("Domestic Company");
   const [isSection115BAC, setIsSection115BAC] = useState(false);
-  const [netTaxableIncome, setNetTaxableIncome] = useState(0);
-  const [relief, setRelief] = useState(0);
+  const [netTaxableIncome, setNetTaxableIncome] = useState("");
+  const [relief, setRelief] = useState("");
   const [tdsTcsMatAmtCreditUtilized, setTdsTcsMatAmtCreditUtilized] =
-    useState(0);
-  const [incomeTax, setIncomeTax] = useState(0);
-  const [surcharge, setSurcharge] = useState(0);
-  const [educationCess, setEducationCess] = useState(0);
-  const [secondaryCess, setSecondaryCess] = useState(0);
-  const [totalTaxLiability, setTotalTaxLiability] = useState(0);
-  const [assessedTax, setAssessedTax] = useState(0);
+    useState("");
+  const [incomeTax, setIncomeTax] = useState("");
+  const [surcharge, setSurcharge] = useState("");
+  const [educationCess, setEducationCess] = useState("");
+  const [secondaryCess, setSecondaryCess] = useState("");
+  const [totalTaxLiability, setTotalTaxLiability] = useState("");
+  const [assessedTax, setAssessedTax] = useState("");
 
   const calculateAdvanceTax = () => {
     if (taxPayer === "Domestic Company") {
@@ -35,7 +35,7 @@ function AdvanceTaxCalculator() {
     } else if (taxPayer === "Foreign Company") {
       const taxRate = isSection115BAC ? 0.4 : 0.5;
       const incomeTax = netTaxableIncome * taxRate;
-      const surcharge = incomeTax > 10000000 ? incomeTax * 0.07 : 0;
+      const surcharge = incomeTax > 10000000 ? incomeTax * 0.02 : 0;
       const educationCess = incomeTax * 0.04;
       const secondaryCess = educationCess * 0.01;
       const totalTaxLiability =
@@ -49,10 +49,11 @@ function AdvanceTaxCalculator() {
       setSecondaryCess(secondaryCess);
       setTotalTaxLiability(totalTaxLiability);
       setAssessedTax(assessedTax);
-    }else if (taxPayer === "Firms") {
+    } else if (taxPayer === "Firms") {
       const taxRate = isSection115BAC ? 0.3 : 0.36;
+
       const incomeTax = netTaxableIncome * taxRate;
-      const surcharge = incomeTax >250000 ? incomeTax * 0.05 : 0;
+      const surcharge = incomeTax > 250000 ? incomeTax * 0.05 : 0;
       const educationCess = incomeTax * 0.04;
       const secondaryCess = educationCess * 0.01;
       const totalTaxLiability =
@@ -66,11 +67,19 @@ function AdvanceTaxCalculator() {
       setSecondaryCess(secondaryCess);
       setTotalTaxLiability(totalTaxLiability);
       setAssessedTax(assessedTax);
-    }
-    else if (taxPayer === "LLP") {
-      const taxRate = isSection115BAC ? 0.3 : 0.36;
+    } else if (taxPayer === "LLP") {
+      // const taxRate = isSection115BAC ? 0.3 : 0.36;
+
+      const taxRate =
+        netTaxableIncome <= 250000
+          ? 0
+          : netTaxableIncome <= 500000
+          ? 0.05
+          : netTaxableIncome <= 1000000
+          ? 0.2
+          : 0.3;
       const incomeTax = netTaxableIncome * taxRate;
-      const surcharge = incomeTax >300000 ? incomeTax * 0.05 : 0;
+      const surcharge = incomeTax > 300000 ? incomeTax * 0.05 : 0;
       const educationCess = incomeTax * 0.04;
       const secondaryCess = educationCess * 0.01;
       const totalTaxLiability =
@@ -84,11 +93,79 @@ function AdvanceTaxCalculator() {
       setSecondaryCess(secondaryCess);
       setTotalTaxLiability(totalTaxLiability);
       setAssessedTax(assessedTax);
-    }
-    else if (taxPayer === "LLP") {
+    } else if (taxPayer === "LLP") {
       const taxRate = isSection115BAC ? 0.3 : 0.36;
       const incomeTax = netTaxableIncome * taxRate;
-      const surcharge = incomeTax >10000 ? incomeTax * 0.2 : 1;
+      const surcharge = incomeTax > 10000 ? incomeTax * 0.2 : 1;
+      const educationCess = incomeTax * 0.04;
+      const secondaryCess = educationCess * 0.01;
+      const totalTaxLiability =
+        incomeTax + surcharge + educationCess + secondaryCess;
+      const assessedTax =
+        totalTaxLiability - relief - tdsTcsMatAmtCreditUtilized;
+
+      setIncomeTax(incomeTax);
+      setSurcharge(surcharge);
+      setEducationCess(educationCess);
+      setSecondaryCess(secondaryCess);
+      setTotalTaxLiability(totalTaxLiability);
+      setAssessedTax(assessedTax);
+    } else if (taxPayer === "HUF") {
+      // const taxRate = isSection115BAC ? 0.3 : 0.36;
+      const taxRate = isSection115BAC
+        ? netTaxableIncome <= 250000
+          ? 0
+          : netTaxableIncome <= 500000
+          ? 0.05
+          : netTaxableIncome <= 750000
+          ? 0.1
+          : netTaxableIncome <= 1000000
+          ? 0.15
+          : netTaxableIncome <= 1250000
+          ? 0.2
+          : netTaxableIncome <= 1500000
+          ? 0.25
+          : 0.3
+        : netTaxableIncome <= 250000
+        ? 0
+        : netTaxableIncome <= 500000
+        ? 0.05
+        : netTaxableIncome <= 750000
+        ? 0.1
+        : netTaxableIncome <= 1000000
+        ? 0.15
+        : netTaxableIncome <= 1250000
+        ? 0.2
+        : netTaxableIncome <= 1500000
+        ? 0.25
+        : 0.3;
+      const incomeTax = netTaxableIncome * taxRate;
+      const surcharge = incomeTax > 250000 ? incomeTax * 0.5 : 0;
+      const educationCess = incomeTax * 0.04;
+      const secondaryCess = educationCess * 0.01;
+      const totalTaxLiability =
+        incomeTax + surcharge + educationCess + secondaryCess;
+      const assessedTax =
+        totalTaxLiability - relief - tdsTcsMatAmtCreditUtilized;
+
+      setIncomeTax(incomeTax);
+      setSurcharge(surcharge);
+      setEducationCess(educationCess);
+      setSecondaryCess(secondaryCess);
+      setTotalTaxLiability(totalTaxLiability);
+      setAssessedTax(assessedTax);
+    } else if (taxPayer === "Co-operative Society") {
+      // const taxRate = isSection115BAC ? 0.3 : 0.36;
+      const taxRate =
+        netTaxableIncome <= 10000
+          ? 1
+          : netTaxableIncome <= 20000
+          ? 0.2
+          : netTaxableIncome <= 1000000
+          ? 0.3
+          : 0.3;
+      const incomeTax = netTaxableIncome * taxRate;
+      const surcharge = incomeTax > 250000 ? incomeTax * 0.5 : 0;
       const educationCess = incomeTax * 0.04;
       const secondaryCess = educationCess * 0.01;
       const totalTaxLiability =
@@ -139,10 +216,10 @@ function AdvanceTaxCalculator() {
     setAssessedTax(0);
   };
 
-if(taxPayer==="Individual"){
-  alert("Its under the procces, till then try others thing")
-  setTaxPayer("Domestic Company")
-}
+  if (taxPayer === "Individual") {
+    alert("Its under the procces, till then try others thing");
+    setTaxPayer("Domestic Company");
+  }
 
   return (
     <div className="advance-tax-calculator">
@@ -150,6 +227,8 @@ if(taxPayer==="Individual"){
       <div className="input-group">
         <label>Tax Payer:</label>
         <select value={taxPayer} onChange={handleTaxPayerChange}>
+          <option value="HUF">HUF</option>
+
           <option value="Individual">Individual</option>
           <option value="Domestic Company">Domestic Company</option>
           <option value="Foreign Company">Foreign Company</option>
